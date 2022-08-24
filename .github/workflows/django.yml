@@ -26,6 +26,8 @@ jobs:
         - name: Install Project 
           run:
               pip install -r requirements.txt
+        - name: Setup Environment Variables
+          run: export DEVELOPMENT_MODE=True
         - name: Check for importing style
           run: isort . 
         - name: Look for auto format errors
