@@ -10,7 +10,26 @@ on:
   
   workflow_dispatch:
 
+env:
+  DAY_OF_WEEK: Monday
+  DEBUG: true
+  DEVELOPMENT_MODE: true
+
 jobs:
+  greeting_job:
+    runs-on: ubuntu-latest
+    env:
+      Greeting: Hello
+    steps:
+      - name: "Say Hello Mona it's Monday"
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+        env:
+          First_Name: Mona
+      - name: 'Development Mode'
+        run: export $DEVELOPMENT_MODE
+      - name: 'Debug'
+        run: export $DEBUG
+
   lint:
     strategy:
         fail-fast: true
@@ -26,8 +45,6 @@ jobs:
         - name: Install Project 
           run:
               pip install -r requirements.txt
-        - name: Setup Environment Variables
-          run: export DEVELOPMENT_MODE=True
         - name: Check for importing style
           run: isort . 
         - name: Look for auto format errors
