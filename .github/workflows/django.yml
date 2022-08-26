@@ -13,7 +13,7 @@ on:
 env:
   DAY_OF_WEEK: Monday
   DEBUG: true
-  DEVELOPMENT_MODE: false
+  DEVELOPMENT_MODE: true
 
 jobs:
   greeting_job:
