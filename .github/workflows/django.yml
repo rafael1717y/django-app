@@ -28,10 +28,10 @@ jobs:
       - name: 'Development Mode'
         run:
           echo "1 - Development mode is $DEVELOPMENT_MODE"
-          export DEVELOPMENT_MODE=True
+          export "DEVELOPMENT_MODE=$DEVELOPMENT_MODE"
           echo "2 - Development mode is $DEVELOPMENT_MODE"      
       - name: 'Debug'
-        run: export $DEBUG
+        run: export "$DEBUG"
 
   lint:
     strategy:
