@@ -85,7 +85,8 @@ WSGI_APPLICATION = 'django_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "False"
 
 if DEVELOPMENT_MODE is True:
     DATABASES = {
@@ -94,12 +95,16 @@ if DEVELOPMENT_MODE is True:
             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
         }
     }
+    print('l 98')
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    print('l 100')
     if os.getenv("DATABASE_URL", None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
         "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
     }
+    
+    
 
 
 # Password validation
