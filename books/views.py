@@ -6,5 +6,8 @@ def home(request):
         'name': 'Grupo PI',
     })
 
-
+def book(request, id):
+    return render(request, 'books/pages/book-view.html', context={
+        'name': 'Grupo PI',
+    })
 
