@@ -144,9 +144,9 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 # Caso seja necessário carregar um arquivo css global não atrelado a um app.
-STATICFILES_DIRS = [
-    BASE_DIR / "base_static",
-]
+#STATICFILES_DIRS = [
+#    BASE_DIR / "base_static",
+#
 
 # Pasta criado apos python manage.py collectstatic
 # Importante criar sempre namespace para evitar colisão de nomes
