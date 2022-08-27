@@ -153,8 +153,9 @@ STATICFILES_DIRS = [
 # evitar nomes iguais -- global-style.css - style.css
 # por isso reviews - templates - reviews de novo
 
-STATIC_ROOT = BASE_DIR / "static"
-
+#STATIC_ROOT = BASE_DIR / "static"
+# Config. para DO.
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 
 # Default primary key field type
