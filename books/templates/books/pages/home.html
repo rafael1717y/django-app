@@ -1,22 +1,17 @@
-{% include 'books/partials/head.html' %}
+{% extends 'global/base.html' %}
 
-    <body>
-        {% include 'books/partials/header.html' %}
-        {% include 'books/partials/search.html' %}
+{% block title %}Home | {% endblock title %}
 
-        <main class="main-content-container">
-            <div class="main-content main-content-list container">   
-                {% include 'books/partials/book.html' %}
-                {% include 'books/partials/book.html' %}
-                {% include 'books/partials/book.html' %}
-                {% include 'books/partials/book.html' %}
-                {% include 'books/partials/book.html' %}
-                {% include 'books/partials/book.html' %}
-                               
-            </div>
-        </main>
-
-        {% include 'books/partials/footer.html' %}
-    </body>
-    
-</html>
+{% block content %}
+<div class="main-content main-content-list container">
+    {% include 'books/partials/book.html' %}
+    {% include 'books/partials/book.html' %}
+    {% include 'books/partials/book.html' %}
+    {% include 'books/partials/book.html' %}
+    {% include 'books/partials/book.html' %}
+    {% include 'books/partials/book.html' %}
+    {% include 'books/partials/book.html' %}
+    {% include 'books/partials/book.html' %}
+    {% include 'books/partials/book.html' %}
+</div>
+{% endblock content %}
