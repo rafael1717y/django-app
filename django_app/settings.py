@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # apps instalados
     "books",  # app criado
     "debug_toolbar",
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -154,7 +155,11 @@ STATIC_URL = "/static/"
 
 # STATIC_ROOT = BASE_DIR / "static"
 # Config. para DO.
+
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Default primary key field type
