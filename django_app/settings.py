@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = True
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = []
 
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
@@ -126,14 +126,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
+
+# Caso seja necessário carregar um arquivo css global não atrelado a um app.
 STATICFILES_DIRS = [
     BASE_DIR / 'base_static',
 ]
-STATIC_ROOT = BASE_DIR / 'static'
+
+# Pasta criado apos python manage.py collectstatic
+# Importante criar sempre namespace para evitar colisão de nomes
+# evitar nomes iguais -- global-style.css - style.css
+# por isso reviews - templates - reviews de novo
+
+STATIC_ROOT = BASE_DIR / 'static' 
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
