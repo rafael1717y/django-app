@@ -12,4 +12,4 @@ pytest
 pillow
 faker
 django-phonenumber-field[phonenumbers]
-whitenoise
+
