@@ -1,5 +1,5 @@
+from django.contrib.auth.models import User
 from django.db import models
-from django.contrib.auth.models import User 
 
 """
 class Category(models.Model):
@@ -54,4 +54,3 @@ Doador (author) (Relação)
 Doador - fone
 Doador - email
 """
-
