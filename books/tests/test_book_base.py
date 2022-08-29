@@ -1,6 +1,7 @@
 from django.test import TestCase
+
 from books import views
-from books.models import Category, Book, User
+from books.models import Book, Category, User
 
 
 class BookTestBase(TestCase):

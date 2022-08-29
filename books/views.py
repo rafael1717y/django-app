@@ -1,4 +1,3 @@
-from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 from utils.books.factory import make_book
@@ -11,15 +10,11 @@ def home(request):
         is_published=True,
     ).order_by("-id")
 
-    if not books:
-        raise Http404("Not found 🥲")
-
     return render(
         request,
         "books/pages/home.html",
         context={
             "books": books,
-            "title": f"{books.first().category.name} - Category | ",
         },
     )
 
