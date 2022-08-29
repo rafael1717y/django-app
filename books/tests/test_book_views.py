@@ -1,7 +1,10 @@
-from django.urls import resolve, reverse
-from books import views
-from books.models import Category, Book, User
 from unittest import skip
+
+from django.urls import resolve, reverse
+
+from books import views
+from books.models import Book, Category, User
+
 from .test_book_base import BookTestBase
 
 
@@ -14,13 +17,13 @@ class BookViewsTest(BookTestBase):
         self.assertIs(view.func, views.home)
 
     # 1
-    #@skip("WIP")
+    # @skip("WIP")
     def test_book_home_view_returns_status_code_200_OK(self):
         response = self.client.get(reverse("books:home"))
         self.assertEqual(response.status_code, 200)
 
     # 2
-    #@skip("WIP")
+    # @skip("WIP")
     def test_book_home_view_loads_correct_template(self):
         response = self.client.get(reverse("books:home"))
         self.assertTemplateUsed(response, "books/pages/home.html")
@@ -82,16 +85,11 @@ class BookViewsTest(BookTestBase):
         # Verifica se um livro existe
         self.assertIn(needed_title, content)
 
-
-    def test_book_home_template_dont_load_books_not_published(self):
+    def test_recipe_detail_template_dont_load_recipe_not_published(self):
         """Test book is_published False dont show"""
         # Need a recipe for this test
-        self.make_book(is_published=False)
+        book = self.make_book(is_published=False)
 
-        response = self.client.get(reverse('books:home'))
+        response = self.client.get(reverse("books:book", kwargs={"id": book.id}))
 
-        # Check if one recipe exists
-        self.assertIn(
-            '<h1>No recipes found here 🥲</h1>',
-            response.content.decode('utf-8')
-        )
+        self.assertEqual(response.status_code, 404)
