@@ -3,7 +3,6 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-
 class Category(models.Model):
     """Representa a categoria de um livro. Ex. literatura 
     estrangeira, livro técnico...
