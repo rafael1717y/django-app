@@ -1,8 +1,9 @@
-from utils.books.factory import make_book
 from django.http import Http404
-from .models import Book
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
+from utils.books.factory import make_book
+
+from .models import Book
 
 
 def home(request):
