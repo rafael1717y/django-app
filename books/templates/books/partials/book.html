@@ -1,9 +1,12 @@
 <div class="book book-list-item">
-    <div class="book-cover">
-        <a href="{% url 'books:book' book.id %}">
-        <img src="{{ book.cover.url }}" alt="Imagem Temporária">
-        </a>
-    </div>
+    {% if book.cover %}
+        <div class="book-cover">
+            <a href="{% url 'books:book' book.id %}">
+                <img src="{{ book.cover.url }}" alt="Imagem Temporária">
+            </a>
+        </div>
+    {% endif %}
+
     <div class="book-title-container">
         <h2 class="book-title">
             <a href="{% url 'books:book' book.id %}">
@@ -12,21 +15,35 @@
         </h2>
     </div>
 
-    <div class="book-author">
+    <div class="book-author">        
         <span class="book-author-item">
             <i class="fas fa-user"></i>
-            {{ book.author.first_name }}
+            {% if book.author is not None %}
+                {% if book.author.first_name %}
+                    {{ book.author.first_name }} {{ book.author.last_name }}
+                {% else %}
+                    {{ book.author.username }}
+                {% endif %}
+            {% else %}
+                Desconhecido
+            {% endif %}
         </span>
+
         <span class="book-author-item">
             <i class="fas fa-calendar-alt"></i>
             {{ book.created_at|date:"d/m/Y" }} às {{ book.created_at|date:"H:i" }}
         </span>
-        <span class="book-author-item">
-            <a href="/books/category/cafe-da-manha/">
-                <i class="fas fa-layer-group"></i>
-                <span>{{ book.category.name }}</span>
-            </a>
-        </span>
+
+        {% if book.category is not None %}
+            <span class="book-author-item">
+                <a href="{% url 'books:category' book.category.id %}">
+                    <i class="fas fa-layer-group"></i>
+                    <span>{{ book.category.name }}</span>
+                </a>
+            </span>
+        {% endif %}
+
+
     </div>
 
     <div class="book-content">
@@ -58,7 +75,11 @@
 
     {% if is_detail_page is True %}
         <div class="preparation-steps">
-            {{ book.preparation_steps|linebreaksbr }}
+            {% if book.preparation_steps_is_html is True %}
+                {{ book.preparation_steps|safe }}
+            {% else %}
+                {{ book.preparation_steps|linebreaksbr }}
+            {% endif %}
         </div>
     {% endif %}
 

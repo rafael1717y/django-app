@@ -13,6 +13,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Book(models.Model):
     """Livros"""
     CONSERVATION_CHOICES = (
@@ -37,7 +38,7 @@ class Book(models.Model):
     is_published = models.BooleanField(default=False)
     phoneNumber = PhoneNumberField(unique = True, null = False, blank = False) 
     email = models.EmailField(max_length=70,blank=True,unique=True)
-    cover = models.ImageField(upload_to='books/covers/%Y/%m/%d/')
+    cover = models.ImageField(upload_to='books/covers/%Y/%m/%d/', blank=True, default='')
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, blank=True, default=None
     )
