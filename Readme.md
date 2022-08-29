@@ -1,4 +1,4 @@
-### Projeto Integrador II - Univesp 2o. Semestre/22
+### Projeto Integrador III - Univesp 2o. Semestre/22
 [![Django CI](https://github.com/rafael1717y/django-app/actions/workflows/django.yml/badge.svg?branch=main)](https://github.com/rafael1717y/django-app/actions/workflows/django.yml)
 
 ### 1. Para instalar

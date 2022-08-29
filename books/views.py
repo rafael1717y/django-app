@@ -1,13 +1,13 @@
 from utils.books.factory import make_book
 from django.http import Http404
 from .models import Book
-from django.shortcuts import get_list_or_404, render
+from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 
 
 def home(request):
     books = Book.objects.filter(
-        is_published=True
+        is_published=True,
     ).order_by('-id')
     
     if not books:
@@ -34,10 +34,7 @@ def category(request, category_id):
 
 
 def book(request, id):
-    book = Book.objects.filter(
-        pk=id,
-        is_published=True,
-    ).order_by('-id').first()
+    book = get_object_or_404(Book, pk=id, is_published=True,)
 
     return render(request, 'books/pages/book-view.html', context={
         'book': book,

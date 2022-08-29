@@ -3,11 +3,17 @@
 {% block title %}Home | {% endblock title %}
 
 {% block content %}
+
 <div class="main-content main-content-list container">
     
     {% for book in books %}
-        {% include 'books/partials/book.html' %}
+    {% include 'books/partials/book.html' %}
+    {% empty %}
+        <div class="center m-y">
+            <h1>No books found here 🥲</h1>
+        </div>
     {% endfor %}
 
 </div>
+
 {% endblock content %}
