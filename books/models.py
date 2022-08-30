@@ -25,7 +25,7 @@ class Book(models.Model):
     )
     title = models.CharField(max_length=65)
     description = models.CharField(max_length=200)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     book_author = models.CharField(max_length=65)
     publication_year = models.IntegerField()
     conservation_state = models.CharField(
@@ -48,3 +48,6 @@ class Book(models.Model):
         Category, on_delete=models.SET_NULL, null=True, blank=True, default=None
     )
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.title
