@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Apps instalados/criados
     "books",
+    "authors",
     "debug_toolbar",
     "phonenumber_field",
 ]

@@ -12,4 +12,5 @@ pytest
 pillow
 faker
 django-phonenumber-field[phonenumbers]
-
+parameterized
+coverage
