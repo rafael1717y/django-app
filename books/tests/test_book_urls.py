@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.urls import reverse, resolve
+from django.urls import resolve, reverse
 
 
 class BookURLsTest(TestCase):
@@ -17,5 +17,3 @@ class BookURLsTest(TestCase):
     def test_book_detail_url_is_correct(self):
         url = reverse("books:book", kwargs={"id": 1})
         self.assertEqual(url, "/books/1/")
-
-  

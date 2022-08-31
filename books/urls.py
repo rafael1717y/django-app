@@ -7,8 +7,7 @@ app_name = "books"
 
 urlpatterns = [
     path("", views.home, name="home"),  # home
-    path('books/search/', views.search, name="search"),
+    path("books/search/", views.search, name="search"),
     path("books/category/<int:category_id>/", views.category, name="category"),
     path("books/<int:id>/", views.book, name="book"),  # books
-   
 ]

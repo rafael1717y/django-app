@@ -102,14 +102,15 @@ class BookViewsTest(BookTestBase):
         self.assertIn(
             "<h1>No books found here 🥲</h1>", response.content.decode("utf-8")
         )
-        
+
     def test_book_category_template_dont_load_books_not_published(self):
         """Test book is_published False dont show"""
         # Need a book for this test
         book = self.make_book(is_published=False)
-        response = self.client.get(reverse("books:book", kwargs={'id': book.category.id}))
+        response = self.client.get(
+            reverse("books:book", kwargs={"id": book.category.id})
+        )
         self.assertEqual(response.status_code, 404)
-
 
     def test_book_detail_template_dont_load_book_not_published(self):
         """Test book is_published False dont show"""
@@ -119,14 +120,13 @@ class BookViewsTest(BookTestBase):
         self.assertEqual(response.status_code, 404)
 
     def test_book_search_url_is_correct(self):
-        url = reverse('books:search')
-        self.assertEqual(url, '/books/search/')
+        url = reverse("books:search")
+        self.assertEqual(url, "/books/search/")
 
     def test_book_search_uses_correct_view_function(self):
-        resolved = resolve(reverse('books:search'))
+        resolved = resolve(reverse("books:search"))
         self.assertIs(resolved.func, views.search)
 
-    
     def test_book_search_loads_correct_template(self):
-        response = self.client.get(reverse('books:search'))
-        self.assertTemplateUsed(response, 'books/pages/search.html')
+        response = self.client.get(reverse("books:search"))
+        self.assertTemplateUsed(response, "books/pages/search.html")

@@ -129,3 +129,6 @@ db.sqlite3
 # Add again for course purpose
 !db.sqlite3
 *.pyc
+
+*.static
+
