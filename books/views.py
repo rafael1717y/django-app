@@ -52,4 +52,4 @@ def book(request, id):
 
 
 def search(request):
-    return render(request, 'books/pages/search.html')
+    return render(request, "books/pages/search.html")
