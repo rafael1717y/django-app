@@ -1,5 +1,5 @@
+from django.http.response import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, render
-
 from utils.books.factory import make_book
 
 from .models import Book
@@ -52,4 +52,16 @@ def book(request, id):
 
 
 def search(request):
-    return render(request, "books/pages/search.html")
+    search_term = request.GET.get("search", "").strip()
+
+    if not search_term:
+        raise Http404()
+
+    return render(
+        request,
+        "books/pages/search.html",
+        {
+            "page_title": f'Search for "{ search_term }" |',
+            "search_term": search_term,
+        },
+    )
