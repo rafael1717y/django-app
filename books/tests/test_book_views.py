@@ -130,3 +130,8 @@ class BookViewsTest(BookTestBase):
     def test_book_search_loads_correct_template(self):
         response = self.client.get(reverse("books:search"))
         self.assertTemplateUsed(response, "books/pages/search.html")
+
+    def test_book_search_raises_404_if_no_search_term(self):
+        url = reverse("books:search")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
