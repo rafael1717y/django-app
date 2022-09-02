@@ -1,4 +1,5 @@
 import time
+from unittest import skip
 import pytest 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.common.by import By
@@ -20,6 +21,7 @@ class BookBaseFunciontalTest(StaticLiveServerTestCase):
 
 @pytest.mark.functional_test
 class BookHomePageFunctionalTest(BookBaseFunciontalTest):
+    @skip('Pular por enqto...chromedriver...')
     def test_book_home_page_without_books_error_message(self):
         """Se SELENIUM_HEADLESS em .env = 1 não abre o navegador"""
         self.browser.get(self.live_server_url)
