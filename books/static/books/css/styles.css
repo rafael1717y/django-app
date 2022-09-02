@@ -393,8 +393,24 @@ background: var(--color-primary-dark);
 color: var(--color-white);
 }
 
+.inline-form {
+display: inline;
+font-size: 1.6rem;
+}
+    
+.plaintext-button {
+display: inline;
+border: none;
+background: none;
+cursor: pointer;
+color: var(--color-primary);
+font-size: 1.6rem;
+}
+
 @media (max-width: 600px) {
-    .main-content-list {
-      grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
-    }
-  }
+.main-content-list {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+}
+
+
+

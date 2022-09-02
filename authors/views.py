@@ -3,9 +3,9 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from .forms import RegisterForm
 from django.urls import reverse 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, RegisterForm
-
+from django.contrib.auth.decorators import login_required
 
 
 def register_view(request):
@@ -35,6 +35,7 @@ def register_create(request):
         user.save()
         messages.success(request, 'Seu usuário foi criado, por favor realize o login.')
         del(request.session['register_form_data'])
+        return redirect(reverse('authors:login'))
     return redirect('authors:register')
 
 
@@ -69,3 +70,17 @@ def login_create(request):
         messages.error(request, 'Nome de usuário ou senha inválidas.')
 
     return redirect(login_url)
+
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def logout_view(request):
+    """View de logout é logout_view difrente da função logout."""
+    if not request.POST:
+        return redirect(reverse('authors:login'))
+
+    if request.POST.get('username') != request.user.username:
+        print('Invalid user name', request.POST, request.user)
+        return redirect(reverse('authors:login'))
+        
+    logout(request)
+    return redirect(reverse('authors:login'))
