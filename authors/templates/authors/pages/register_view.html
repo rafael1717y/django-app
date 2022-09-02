@@ -7,6 +7,9 @@
     <h2>Registrar</h2>
   </div>
 
+  {% include 'books/partials/messages.html' %}
+
+
   <div class="main-content container">
     <form action="{% url 'authors:create' %}" method="POST">
       {% csrf_token %}
@@ -26,9 +29,20 @@
         {% endfor %}
       </div>
 
+      {% if form.errors %}
+        <div class="form-content form-content-grid">
+          <div class="form-group">
+            <div class="message message-error">
+              Há erros no formulário, corrijá-os e envie novamente.
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+
       <div class="form-content form-content-grid">
         <div class="form-group">
-          <button type="submit">Send</button>
+          <button type="submit">Enviar</button>
         </div>
     </form>
   </div>

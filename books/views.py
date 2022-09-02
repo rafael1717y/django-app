@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.http.response import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, render
-
+from django.contrib import messages
 from utils.books.factory import make_book
 
 from .models import Book
@@ -66,7 +66,7 @@ def search(request):
         ),
         is_published=True
     ).order_by('-id')
-
+    messages.success(request, 'Epa, você pesquisou!!!.')
     return render(
         request,
         "books/pages/search.html",

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
+import re
 
 def add_attr(field, attr_name, attr_new_val):
     existing = field.widget.attrs.get(attr_name, "")
@@ -12,6 +12,18 @@ def add_placeholder(field, placeholder_val):
     add_attr(field, "placeholder", placeholder_val)
 
 
+def strong_password(password):
+    regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
+
+    if not regex.match(password):
+        raise ValidationError((
+            'A senha deve ter ao menos um caractere maiúsculo, '
+            'um minúsculo e um número. O tamanho deve ser de'
+            'ao menos 8 caracteres.'
+        ),
+            code='invalid'
+        )
+
 class RegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -19,11 +31,13 @@ class RegisterForm(forms.ModelForm):
         add_placeholder(self.fields["email"], "Seu email")
         add_placeholder(self.fields["first_name"], "Ex.: John")
         add_placeholder(self.fields["last_name"], "Ex.: Doe")
-        add_attr(self.fields["username"], "css", "a-css-class")
+        add_placeholder(self.fields['password'], 'Digite sua senha')
+        add_placeholder(self.fields['password2'], 'Repita sua senha')
+
 
     password = forms.CharField(
         required=True,
-        widget=forms.PasswordInput(attrs={"placeholder": "Sua senha"}),
+        widget=forms.PasswordInput(),
         error_messages={"required": "O campo senha não pode ser vazio."},
         help_text=(
             "A senha deve ter ao menos um caractere maiúsculo, "
@@ -32,7 +46,7 @@ class RegisterForm(forms.ModelForm):
     )
     password2 = forms.CharField(
         required=True,
-        widget=forms.PasswordInput(attrs={"placeholder": "Repita sua senha"}),
+        widget=forms.PasswordInput(),
     )
 
     class Meta:
@@ -60,17 +74,7 @@ class RegisterForm(forms.ModelForm):
                 "required": "Este campo não pode ser vazio.",
             }
         }
-        widgets = {
-            "first_name": forms.TextInput(
-                attrs={
-                    "placeholder": "Digite seu primeiro nome aqui.",
-                    "class": "input text-input",
-                }
-            ),
-            "password": forms.PasswordInput(
-                attrs={"placeholder": "Digite sua senha aqui."}
-            ),
-        }
+       
 
     def clean_password(self):
         data = self.cleaned_data.get("password")
@@ -95,3 +99,21 @@ class RegisterForm(forms.ModelForm):
             )
 
         return data
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        password = cleaned_data.get('password')
+        password2 = cleaned_data.get('password2')
+
+        if password != password2:
+            password_confirmation_error = ValidationError(
+                'Password and password2 devem ser iguais',
+                code='invalid'
+            )
+            raise ValidationError({
+                'password': password_confirmation_error,
+                'password2': [
+                    password_confirmation_error,
+                ],
+            })
