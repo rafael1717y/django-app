@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 import sys
 from pathlib import Path
-
+from django.contrib.messages import constants
 import dj_database_url
 from django.core.management.utils import get_random_secret_key
 
@@ -149,3 +149,11 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+MESSAGE_TAGS = {
+    constants.DEBUG: 'message-debug',
+    constants.ERROR: 'message-error',
+    constants.INFO: 'message-info',
+    constants.SUCCESS: 'message-success',
+    constants.WARNING: 'message-warning',
+}
