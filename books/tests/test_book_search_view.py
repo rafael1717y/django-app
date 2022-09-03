@@ -33,28 +33,28 @@ class BookSearchViewTest(BookTestBase):
             "Search for &quot;&lt;Teste&gt;&quot;", response.content.decode("utf-8")
         )
 
-    @skip('in progress...')
+    @skip("in progress...")
     def test_book_search_can_find_book_by_title(self):
-        title1 = 'This is book one'
-        title2 = 'This is book two'
+        title1 = "This is book one"
+        title2 = "This is book two"
 
         book1 = self.make_book(
-            slug='one', title=title1, author_data={'username': 'one'}
+            slug="one", title=title1, author_data={"username": "one"}
         )
         book2 = self.make_book(
-            slug='two', title=title2, author_data={'username': 'two'}
+            slug="two", title=title2, author_data={"username": "two"}
         )
 
-        search_url = reverse('books:search')
-        response1 = self.client.get(f'{search_url}?q={title1}')
-        response2 = self.client.get(f'{search_url}?q={title2}')
-        response_both = self.client.get(f'{search_url}?q=this')
+        search_url = reverse("books:search")
+        response1 = self.client.get(f"{search_url}?q={title1}")
+        response2 = self.client.get(f"{search_url}?q={title2}")
+        response_both = self.client.get(f"{search_url}?q=this")
 
-        self.assertIn(book1, response1.context['books'])
-        self.assertNotIn(book2, response1.context['books'])
+        self.assertIn(book1, response1.context["books"])
+        self.assertNotIn(book2, response1.context["books"])
 
-        self.assertIn(book2, response2.context['books'])
-        self.assertNotIn(book1, response2.context['books'])
+        self.assertIn(book2, response2.context["books"])
+        self.assertNotIn(book1, response2.context["books"])
 
-        self.assertIn(book1, response_both.context['books'])
-        self.assertIn(book2, response_both.context['books'])
+        self.assertIn(book1, response_both.context["books"])
+        self.assertIn(book2, response_both.context["books"])
