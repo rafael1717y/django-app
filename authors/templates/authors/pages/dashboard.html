@@ -1,0 +1,30 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Dashboard ({{ user }}) | {% endblock title %}
+
+{% block content %}
+  <div class="main-content center container">
+    <h2>Dashboard ({{ user }})</h2>
+    {% include 'authors/partials/login_message.html' %}
+
+    <div class="authors-dashboard-container">
+      <br>
+      <h3>Seus livros compartilhados:</h3>
+
+      <ul>
+        {% for book in books %}
+          <li>
+            <a href="{% url 'authors:dashboard_book_edit' book.id %}">{{ book.title }}</a>
+          </li>
+        {% empty %}
+          <li>
+            <p>Você não tem nenhum livro compartilhado.</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  {% include 'global/partials/messages.html' %}
+
+  {% endblock content %}
