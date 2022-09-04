@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
-
 from .forms import LoginForm, RegisterForm
+from books.models import Book
 
 
 def register_view(request):
@@ -70,7 +70,7 @@ def login_create(request):
     else:
         messages.error(request, "Nome de usuário ou senha inválidas.")
 
-    return redirect(login_url)
+    return redirect(reverse('authors:dashboard'))
 
 
 @login_required(login_url="authors:login", redirect_field_name="next")
@@ -85,3 +85,30 @@ def logout_view(request):
 
     logout(request)
     return redirect(reverse("authors:login"))
+
+
+@login_required(login_url="authors:login", redirect_field_name="next")
+def dashboard(request):
+    books = Book.objects.filter(
+        is_published=False,
+        author=request.user
+    )
+    return render(request, 'authors/pages/dashboard.html', 
+    context= { 'books': books, }
+    )
+
+
+@login_required(login_url="authors:login", redirect_field_name="next")
+def dashboard_book_edit(request, id):
+    book = Book.objects.filter(
+        is_published=False,
+        author=request.user,
+        pk=id,
+    )
+
+    if not book:
+        raise Http404()
+
+    return render(request, 'authors/pages/dashboard_book.html', 
+    context= {  }
+    )
