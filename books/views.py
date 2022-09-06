@@ -10,7 +10,8 @@ from utils.pagination import make_pagination
 
 from .models import Book
 
-PER_PAGE = int(os.environ.get("PER_PAGE", 4))
+
+PER_PAGE = int(os.environ.get("PER_PAGE", 3))
 
 
 def home(request):
@@ -23,8 +24,8 @@ def home(request):
     return render(
         request,
         "books/pages/home.html",
-        context={"books": page_obj, "pagination_range": pagination_range},
-    )
+        context={"books": page_obj, "pagination_range": pagination_range
+        })
 
 
 def category(request, category_id):
@@ -44,8 +45,7 @@ def category(request, category_id):
             "books": page_obj,
             "pagination_range": pagination_range,
             "title": f"{books[0].category.name} - Category | ",
-        },
-    )
+        })
 
 
 def book(request, id):
@@ -80,7 +80,7 @@ def search(request):
 
     page_obj, pagination_range = make_pagination(request, books, PER_PAGE)
 
-    messages.success(request, "Epa, você pesquisou!!!.")
+    #messages.success(request, "Epa, você pesquisou!!!.")
     return render(
         request,
         "books/pages/search.html",
