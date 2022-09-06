@@ -1,11 +1,16 @@
+import os
+
 from django.contrib import messages
 from django.db.models import Q
 from django.http.response import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 from utils.books.factory import make_book
+from utils.pagination import make_pagination
 
 from .models import Book
+
+PER_PAGE = int(os.environ.get("PER_PAGE", 6))
 
 
 def home(request):
@@ -13,12 +18,12 @@ def home(request):
         is_published=True,
     ).order_by("-id")
 
+    page_obj, pagination_range = make_pagination(request, books, PER_PAGE)
+
     return render(
         request,
         "books/pages/home.html",
-        context={
-            "books": books,
-        },
+        context={"books": page_obj, "pagination_range": pagination_range},
     )
 
 
@@ -30,10 +35,16 @@ def category(request, category_id):
         ).order_by("-id")
     )
 
+    page_obj, pagination_range = make_pagination(request, books, PER_PAGE)
+
     return render(
         request,
         "books/pages/category.html",
-        context={"books": books, "title": f"{books[0].category.name} - Category | "},
+        context={
+            "books": page_obj,
+            "pagination_range": pagination_range,
+            "title": f"{books[0].category.name} - Category | ",
+        },
     )
 
 
@@ -66,6 +77,9 @@ def search(request):
         ),
         is_published=True,
     ).order_by("-id")
+
+    page_obj, pagination_range = make_pagination(request, books, PER_PAGE)
+
     messages.success(request, "Epa, você pesquisou!!!.")
     return render(
         request,
@@ -73,6 +87,8 @@ def search(request):
         {
             "page_title": f'Search for "{search_term}" |',
             "search_term": search_term,
-            "books": books,
+            "books": page_obj,
+            "pagination_range": pagination_range,
+            "additional_url_query": f"&q={search_term}",
         },
     )
