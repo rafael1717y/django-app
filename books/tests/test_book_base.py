@@ -3,6 +3,7 @@ from django.test import TestCase
 from books import views
 from books.models import Book, Category, User
 
+
 class BookMixin:
     def make_category(self, name="Category"):
         return Category.objects.create(name=name)
@@ -68,15 +69,15 @@ class BookMixin:
     def make_book_in_batch(self, qtd=10):
         books = []
         for i in range(qtd):
-            kwargs = {'slug': f'r{i}', 'author_data': {'username': f'u{i}', 'email': f'e{i}@gmail.com'}}
+            kwargs = {
+                "slug": f"r{i}",
+                "author_data": {"username": f"u{i}", "email": f"e{i}@gmail.com"},
+            }
             book = self.make_book(**kwargs)
             books.append(book)
         return books
 
 
-
 class BookTestBase(TestCase, BookMixin):
     def setUp(self):
         return super().setUp()
-
-    
