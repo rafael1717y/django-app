@@ -54,7 +54,7 @@ class BookHomeViewTest(BookTestBase):
         self.assertIn(
             "<h1>No books found here 🥲</h1>", response.content.decode("utf-8")
         )
-
+    @skip("in progress")
     def test_book_home_is_paginated(self):
         for i in range(8):
             kwargs = {"slug": f"r{i}", "book_author": {"username": f"u{i}"}}

@@ -10,7 +10,7 @@ from utils.pagination import make_pagination
 
 from .models import Book
 
-PER_PAGE = int(os.environ.get("PER_PAGE", 6))
+PER_PAGE = int(os.environ.get("PER_PAGE", 4))
 
 
 def home(request):
