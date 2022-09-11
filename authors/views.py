@@ -1,3 +1,4 @@
+from books.models import Book
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -5,7 +6,7 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from books.models import Book
+from authors.forms.book_form import AuthorBookForm
 
 from .forms import LoginForm, RegisterForm
 
@@ -107,9 +108,19 @@ def dashboard_book_edit(request, id):
         is_published=False,
         author=request.user,
         pk=id,
-    )
+    ).first()
 
     if not book:
         raise Http404()
 
-    return render(request, "authors/pages/dashboard_book.html", context={})
+    form = AuthorBookForm(
+        data=request.POST or None,
+        instance=book
+    )
+
+    return render(
+        request,
+        "authors/pages/dashboard_book.html",
+        context={
+            'form': form
+    })
