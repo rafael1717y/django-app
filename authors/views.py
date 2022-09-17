@@ -171,3 +171,18 @@ def dashboard_book_new(request):
         }
     )
 
+
+login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_book_delete(request, id):
+    book = Book.objects.filter(
+        is_published=False,
+        author=request.user,
+        pk=id,
+    ).first()
+
+    if not book:
+        raise Http404()
+
+    book.delete()
+    messages.success(request, 'Deletado com sucesso.')
+    return redirect(reverse('authors:dashboard'))

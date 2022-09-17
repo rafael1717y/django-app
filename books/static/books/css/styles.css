@@ -475,3 +475,10 @@ font-size: 1.6rem;
     list-style-type: none;
     margin: 1rem 0;
 }
+
+.hidden-text {
+    display: none;
+}
+
+/* Menu */
+

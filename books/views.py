@@ -9,9 +9,18 @@ from utils.books.factory import make_book
 from utils.pagination import make_pagination
 
 from .models import Book
+from rest_framework import generics
+from .serializers import BookSerializer
 
 
 PER_PAGE = int(os.environ.get("PER_PAGE", 3))
+
+# Api
+
+class BookList(generics.ListCreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
 
 
 def home(request):
