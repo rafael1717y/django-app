@@ -17,6 +17,16 @@
         {% for book in books %}
           <li>
             <a href="{% url 'authors:dashboard_book_edit' book.id %}">{{ book.title }}</a>
+           
+            <form 
+            class="inline-form form-delete" 
+            action="{% url 'authors:dashboard_book_delete' book.id %}" 
+            method='POST'
+            >
+              {% csrf_token %}
+              <button class="plaintext-button" type="submit">❌</button>
+            </form>
+
           </li>
         {% empty %}
           <li>

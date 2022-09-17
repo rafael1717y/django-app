@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Apps instalados/criados
+    "rest_framework",
     "books",
     "authors",
     "debug_toolbar",

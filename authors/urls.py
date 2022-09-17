@@ -19,4 +19,9 @@ urlpatterns = [
         views.dashboard_book_edit,
         name="dashboard_book_edit",
     ),
+    path(
+        "dashboard/book/<int:id>/delete/",
+        views.dashboard_book_delete,
+        name="dashboard_book_delete",
+    ),
 ]
