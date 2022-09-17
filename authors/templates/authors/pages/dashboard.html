@@ -5,7 +5,9 @@
 {% block content %}
   <div class="main-content center container">
     <h2>Dashboard ({{ user }})</h2>
+    
     {% include 'authors/partials/login_message.html' %}
+    {% include 'global/partials/messages.html' %}
 
     <div class="authors-dashboard-container">
       <br>
@@ -25,6 +27,6 @@
     </div>
   </div>
 
-  {% include 'global/partials/messages.html' %}
+
 
   {% endblock content %}
