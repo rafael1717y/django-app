@@ -115,12 +115,59 @@ def dashboard_book_edit(request, id):
 
     form = AuthorBookForm(
         data=request.POST or None,
+        files=request.FILES or None,
         instance=book
     )
+    print('linha 121', form)
+    if form.is_valid():
+        # Validação do form 
+        book = form.save(commit=False)
+
+        book.author = request.user
+        book.review_is_html = False
+        book.is_published = False
+        book.save()  # salva no db
+        
+        messages.success(request, 'Seu livro foi salvo com sucesso!')
+        
+        return redirect(reverse('authors:dashboard_book_edit', args=(id,)))
 
     return render(
         request,
         "authors/pages/dashboard_book.html",
         context={
             'form': form
-    })
+        }
+    )
+
+
+@login_required(login_url="authors:login", redirect_field_name="next")
+def dashboard_book_new(request):
+    form = AuthorBookForm(
+        data=request.POST or None,
+        files=request.FILES or None,
+    )
+
+    if form.is_valid():
+        # Validação do form 
+        book: Book = form.save(commit=False)
+        book.author = request.user
+        book.review_is_html = False
+        book.is_published = False
+    
+        book.save()  # salva no db
+    
+        messages.success(request, 'Seu livro foi salvo com sucesso!')
+    
+        return redirect(
+            reverse('authors:dashboard_book_edit', args=(book.id,)))
+
+    return render(
+        request,
+        "authors/pages/dashboard_book.html",
+        context={
+            'form': form,
+            'form_action': reverse('authors:dashboard_book_new')
+        }
+    )
+

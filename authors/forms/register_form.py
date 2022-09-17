@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
 from utils.django_forms import add_placeholder, strong_password
 
 

@@ -3,12 +3,13 @@
       <p>Você está logado como {{ request.user.username }}.
         <br>
         <br>
-      
+        <a href="{% url 'authors:dashboard' %}">Veja seus livros</a>, 
+        <a href="{% url 'authors:dashboard_book_new' %}"> compartilhe um novo livro </a> ou
       
       <form class="inline-form" action="{% url 'authors:logout' %}" method='POST'>
         {% csrf_token %}
         <input type="hidden" name="username" value="{{ request.user.username }}">
-        <button class="plaintext-button" type="submit">Clique aqui</button>
+        <button class="plaintext-button" type="submit">clique aqui</button>
       </form> caso deseje sair.
     </div>
     {% endif %}

@@ -156,3 +156,8 @@ MESSAGE_TAGS = {
     constants.SUCCESS: "message-success",
     constants.WARNING: "message-warning",
 }
+
+# Django Debug Toolbar
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -36,11 +37,12 @@ class Book(models.Model):
     isbn = models.IntegerField()
     review = models.TextField()
     review_is_html = models.BooleanField(default=False)
+    phoneNumber = models.CharField(max_length=15)
+    city = models.CharField(max_length=30)
+    email = models.EmailField(max_length=70, blank=True, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
-    phoneNumber = PhoneNumberField(unique=True, null=False, blank=False)
-    email = models.EmailField(max_length=70, blank=True, unique=True)
     cover = models.ImageField(
         upload_to="books/covers/%Y/%m/%d/", blank=True, default=""
     )
@@ -51,3 +53,11 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            slug = f'{slugify(self.title)}'
+            self.slug = slug
+
+        return super().save(*args, **kwargs)
