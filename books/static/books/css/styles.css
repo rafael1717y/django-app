@@ -481,4 +481,7 @@ font-size: 1.6rem;
 }
 
 /* Menu */
-
+.menu-content {
+    font-size: 200px;
+    float:left;
+}
