@@ -1,5 +1,5 @@
 from django.urls import path
-
+from authors import *
 from . import views
 
 app_name = "authors"
@@ -23,5 +23,5 @@ urlpatterns = [
         "dashboard/book/<int:id>/delete/",
         views.dashboard_book_delete,
         name="dashboard_book_delete",
-    ),
+    ),   
 ]
