@@ -47,7 +47,8 @@
     </div>
 
     <div class="book-content">
-        <p>{{ book.description }}</p>
+        <p> Descrição: {{ book.description }}</p>
+        <p>Autor: {{ book.author}} </p>
     </div>
     <div class="book-meta-container">
     <div class="book-meta book-preparation">
@@ -77,8 +78,16 @@
         <div class="preparation-steps">
             {% if book.preparation_steps_is_html is True %}
                 {{ book.preparation_steps|safe }}
+                Review: {{ book.review }}
             {% else %}
+                <h3>Informações Complementares: </h3>
                 {{ book.preparation_steps|linebreaksbr }}
+                Review: {{ book.review }} <br><br>
+                Editora: {{ book.publishing_company}} <br><br>
+                Isbn: {{ book.isbn}}  <br><br>
+                Idioma da obra: {{ book.language }} <br><br>
+                Contato do doador: <strong> {{ book.email}} - {{ book.phoneNumber}} <strong>
+
             {% endif %}
         </div>
     {% endif %}
