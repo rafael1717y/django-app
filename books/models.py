@@ -19,31 +19,31 @@ class Book(models.Model):
     """Livros"""
 
     CONSERVATION_CHOICES = (
-        ("MN", "Muito Usado"),
-        ("U", "Usado"),
-        ("SN", "Semi-Novo"),
-        ("N", "Novo"),
+        ("Muito Usado", "Muito Usado"),
+        ("Usado", "Usado"),
+        ("Semi-novo", "Semi-Novo"),
+        ("Novo", "Novo"),
     )
-    title = models.CharField(max_length=65)
-    description = models.CharField(max_length=200)
+    TITULO = models.CharField(max_length=65)
+    DESCRICAO = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
-    book_author = models.CharField(max_length=65)
-    publication_year = models.IntegerField()
-    conservation_state = models.CharField(
-        max_length=2, choices=CONSERVATION_CHOICES, blank=False, null=False
+    AUTOR_DO_LIVRO = models.CharField(max_length=65)
+    ANO_DE_PUBLICACAO = models.IntegerField()
+    ESTADO_DE_CONSERVACAO = models.CharField(
+        max_length=20, choices=CONSERVATION_CHOICES, blank=False, null=False
     )
-    language = models.CharField(max_length=50)
-    publishing_company = models.CharField(max_length=65)
-    isbn = models.IntegerField()
-    review = models.TextField()
+    IDIOMA = models.CharField(max_length=50)
+    EDITORA = models.CharField(max_length=65)
+    ISBN = models.IntegerField()
+    RESUMO_DA_OBRA = models.TextField() #review
     review_is_html = models.BooleanField(default=False)
-    phoneNumber = models.CharField(max_length=15)
-    city = models.CharField(max_length=30)
-    email = models.EmailField(max_length=70, blank=True, unique=True)
+    TELEFONE_DO_DOADOR = models.CharField(max_length=15)
+    CIDADE_DO_DOADOR = models.CharField(max_length=30)
+    EMAIL_DO_DOADOR = models.EmailField(max_length=70, blank=True, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
-    cover = models.ImageField(
+    IMAGEM_DA_CAPA_DO_LIVRO = models.ImageField(
         upload_to="books/covers/%Y/%m/%d/", blank=True, default=""
     )
     category = models.ForeignKey(
@@ -52,12 +52,12 @@ class Book(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return self.title
+        return self.TITULO
 
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            slug = f'{slugify(self.title)}'
+            slug = f'{slugify(self.TITULO)}'
             self.slug = slug
 
         return super().save(*args, **kwargs)

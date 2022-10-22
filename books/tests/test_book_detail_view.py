@@ -21,7 +21,7 @@ class BookDetailView(BookTestBase):
         needed_title = "This is a detail page - It load one book"
 
         # Need a recipe for this test
-        self.make_book(title=needed_title)
+        self.make_book(TITULO=needed_title)
 
         response = self.client.get(reverse("books:book", kwargs={"id": 1}))
         content = response.content.decode("utf-8")

@@ -11,26 +11,26 @@ class CategoryAdmin(admin.ModelAdmin):
 class BookAdmin(admin.ModelAdmin):
     list_display = [
         "id",
-        "title",
+        "TITULO",
         "created_at",
-        "book_author",
+        "AUTOR_DO_LIVRO",
         "is_published",
-        "publication_year",
+        "ANO_DE_PUBLICACAO",
     ]
-    list_display_links = "title", "created_at"
+    list_display_links = "TITULO", "created_at"
     search_fields = (
         "id",
-        "title",
-        "description",
-        "book_author",
+        "TITULO",
+        "DESCRICAO",
+        "AUTOR_DO_LIVRO",
         "slug",
-        "publication_year",
+        "ANO_DE_PUBLICACAO",
     )
     list_filter = "category", "author", "is_published", "review_is_html"
     list_per_page = 7
     list_editable = ("is_published",)
     ordering = ("-id",)
-    prepopulated_fields = {"slug": ("title",)}
+    prepopulated_fields = {"slug": ("TITULO",)}
 
 
 admin.site.register(Category, CategoryAdmin)
