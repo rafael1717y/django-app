@@ -13,24 +13,25 @@ class AuthorBookForm(forms.ModelForm):
         self._my_errors = defaultdict(list)
         
 
-        add_attr(self.fields.get('title'), 'class', 'span-2')
+        add_attr(self.fields.get('TITULO'), 'class', 'span-2')
         
         
         
 
     class Meta:
         model = Book
-        fields = 'title', 'description', 'book_author', \
-            'publication_year', 'conservation_state', \
-                'language', 'publishing_company', \
-                'isbn', 'review', 'email', 'cover'
+        fields = 'TITULO', 'DESCRICAO', 'AUTOR_DO_LIVRO', \
+            'ANO_DE_PUBLICACAO', 'ESTADO_DE_CONSERVACAO', \
+            'IDIOMA', 'EDITORA', 'category', \
+            'ISBN', 'RESUMO_DA_OBRA','CIDADE_DO_DOADOR', \
+            'EMAIL_DO_DOADOR','TELEFONE_DO_DOADOR', 'IMAGEM_DA_CAPA_DO_LIVRO',                
         widgets = {
-            'cover' : forms.FileInput(
+            'IMAGEM_DA_CAPA_DO_LIVRO' : forms.FileInput(
                 attrs= {
                     'class': 'span-2'
                 }
             ),
-            'language': forms.Select(
+            'IDIOMA': forms.Select(
                 choices=(
                     ('Português', 'Português'),
                     ('Inglês', 'Inglês'),
@@ -46,14 +47,14 @@ class AuthorBookForm(forms.ModelForm):
     def clean(self, *args, **kwargs):
         super_clean = super().clean(*args, **kwargs)
         cd = self.cleaned_data
-        title = cd.get('title')
-        description = cd.get('description')
-        if len(title) < 5:
-            self._my_errors['title'].append('Título deve ter ao menos 5 caracteres.')
+        TITULO = cd.get('TITULO')
+        description = cd.get('DESCRICAO')
+        if len(TITULO) < 5:
+            self._my_errors['TITULO'].append('Título deve ter ao menos 5 caracteres.')
 
-        if title == description:
-            self._my_errors['title'].append('Não pode ser igual a descrição')
-            self._my_errors['description'].append('Não pode ser igual ao título')
+        if TITULO == description:
+            self._my_errors['TITULO'].append('Não pode ser igual a descrição')
+            self._my_errors['DESCRICAO'].append('Não pode ser igual ao título')
 
         if self._my_errors: 
             raise ValidationError(self._my_errors)

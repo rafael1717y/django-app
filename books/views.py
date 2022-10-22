@@ -82,7 +82,7 @@ def search(request):
 
     books = Book.objects.filter(
         Q(
-            Q(title__icontains=search_term) | Q(description__icontains=search_term),
+            Q(TITULO__icontains=search_term) | Q(DESCRICAO__icontains=search_term),
         ),
         is_published=True,
     ).order_by("-id")

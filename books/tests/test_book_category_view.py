@@ -22,7 +22,7 @@ class BookCategoryViewTest(BookTestBase):
     def test_book_category_template_loads_books(self):
         needed_title = "This is a category test"
         # Need a recipe for this test
-        self.make_book(title=needed_title)
+        self.make_book(TITULO=needed_title)
 
         response = self.client.get(reverse("books:book", args=(1,)))
         content = response.content.decode("utf-8")

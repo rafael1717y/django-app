@@ -1,8 +1,8 @@
 <div class="book book-list-item">
-    {% if book.cover %}
+    {% if book.IMAGEM_DA_CAPA_DO_LIVRO %}
         <div class="book-cover">
             <a href="{% url 'books:book' book.id %}">
-                <img src="{{ book.cover.url }}" alt="Imagem Temporária">
+                <img src="{{ book.IMAGEM_DA_CAPA_DO_LIVRO.url }}" alt="Imagem Temporária">
             </a>
         </div>
     {% endif %}
@@ -10,7 +10,7 @@
     <div class="book-title-container">
         <h2 class="book-title">
             <a href="{% url 'books:book' book.id %}">
-            {{ book.title }} 
+            {{ book.TITULO }} 
             </a>
         </h2>
     </div>
@@ -47,20 +47,20 @@
     </div>
 
     <div class="book-content">
-        <p> Descrição: {{ book.description }}</p>
-        <p>Autor: {{ book.author}} </p>
+        <p> Descrição: {{ book.DESCRICAO }}</p>
+        <p>Autor: {{ book.AUTOR_DO_LIVRO}} </p>
     </div>
     <div class="book-meta-container">
     <div class="book-meta book-preparation">
         <h3 class="book-meta-title"><i class="fas fa-solid fa-city"></i> Cidade</h3>
         <div class="book-meta-text">
-            {{ book.available }}
+            {{ book.CIDADE_DO_DOADOR }}
         </div>
     </div>
     <div class="book-meta book-servings">
         <h3 class="book-meta-title"><i class="fas fa-solid fa-city"></i> Estado de Conservação</h3>
         <div class="book-meta-text">
-            {{ book.conservation_state }}
+            {{ book.ESTADO_DE_CONSERVACAO }}
         </div>
     </div>
 </div>
@@ -69,7 +69,7 @@
         <footer class="book-footer">
             <a class="book-read-more button button-dark button-full-width" href="{% url 'books:book' book.id %}">
                 <i class="fas fa-eye"></i>
-                <span>ver mais...</span>
+                <span>Ver mais...</span>
             </a>
         </footer>
     {% endif %}
@@ -78,15 +78,15 @@
         <div class="preparation-steps">
             {% if book.preparation_steps_is_html is True %}
                 {{ book.preparation_steps|safe }}
-                Review: {{ book.review }}
+                Review: {{ book.RESUMO_DA_OBRA }}
             {% else %}
                 <h3>Informações Complementares: </h3>
                 {{ book.preparation_steps|linebreaksbr }}
-                Review: {{ book.review }} <br><br>
-                Editora: {{ book.publishing_company}} <br><br>
-                Isbn: {{ book.isbn}}  <br><br>
-                Idioma da obra: {{ book.language }} <br><br>
-                Contato do doador: <strong> {{ book.email}} - {{ book.phoneNumber}} <strong>
+                Review: {{ book.RESUMO_DA_OBRA }} <br><br>
+                Editora: {{ book.EDITORA}} <br><br>
+                Isbn: {{ book.ISBN}}  <br><br>
+                Idioma da obra: {{ book.IDIOMA }} <br><br>
+                Contato do doador: <strong> {{ book.EMAIL_DO_DOADOR}} - {{ book.TELEFONE_DO_DOADOR}} <strong>
 
             {% endif %}
         </div>
